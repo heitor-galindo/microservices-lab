@@ -1,21 +1,49 @@
 {
   "realm": "MsSecurity",
   "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrador do sistema"
+      },
+      {
+        "name": "USER",
+        "description": "Usuário padrão"
+      }
+    ]
+  },
   "clients": [
     {
       "clientId": "gateway",
       "enabled": true,
       "protocol": "openid-connect",
-
       "publicClient": false,
       "clientAuthenticatorType": "client-secret",
-
       "standardFlowEnabled": true,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
-
-      "redirectUris": ["*"],
-      "webOrigins": ["*"]
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    },
+    {
+      "clientId": "ms-student",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
     }
   ],
   "users": [
@@ -27,10 +55,30 @@
       "enabled": true,
       "credentials": [
         {
-          "type": "user",
+          "type": "password",
           "value": "user",
           "temporary": false
         }
+      ],
+      "realmRoles": [
+        "USER"
+      ]
+    },
+    {
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "firstName": "Admin",
+      "lastName": "Admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
       ]
     }
   ]

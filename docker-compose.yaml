@@ -27,31 +27,32 @@ services:
       - "8761:8761"
     restart: on-failure
 
-
-  gateway:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        PROJECT_DIR: gateway
-    image: gateway
-    environment:
-      EUREKA_HOST: http://eureka-server:8761/eureka/
-      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
-    ports:
-      - "8089:8089"
-    restart: on-failure
-
-  student-ms:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        PROJECT_DIR: StudentMS
-    image: student-ms
-    environment:
-      EUREKA_HOST: http://eureka-server:8761/eureka/
-      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
-    ports:
-      - "8084:8084"
-    restart: on-failure
+# COMMENTED OUT MICROSERVICES UNTIL FIX
+#
+#  gateway:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      args:
+#        PROJECT_DIR: gateway
+#    image: gateway
+#    environment:
+#      EUREKA_HOST: http://eureka-server:8761/eureka/
+#      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
+#    ports:
+#      - "8089:8089"
+#    restart: on-failure
+#
+#  student-ms:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      args:
+#        PROJECT_DIR: StudentMS
+#    image: student-ms
+#    environment:
+#      EUREKA_HOST: http://eureka-server:8761/eureka/
+#      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
+#    ports:
+#      - "8084:8084"
+#    restart: on-failure
