@@ -6,9 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-/**
- * The type Student.
- */
+/** The type Student. */
 @Entity
 @Getter
 @Setter

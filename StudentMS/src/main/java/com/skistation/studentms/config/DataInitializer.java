@@ -8,9 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * The type Data initializer.
- */
+/** The type Data initializer. */
 @Configuration
 @Slf4j
 public class DataInitializer {
