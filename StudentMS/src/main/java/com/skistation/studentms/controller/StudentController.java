@@ -8,11 +8,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * The type Student controller.
- */
+/** The type Student controller. */
 @RestController
 @RequestMapping(path = "/students")
 public class StudentController {
@@ -23,9 +22,9 @@ public class StudentController {
    * Create student response entity.
    *
    * @param student the student
-   * @return  the response entity
+   * @return the response entity
    */
-@PostMapping
+  @PostMapping
   public ResponseEntity<Student> createStudent(@RequestBody Student student) {
     Student saved = studentRepository.save(student);
     return new ResponseEntity<>(saved, HttpStatus.CREATED);
@@ -34,9 +33,10 @@ public class StudentController {
   /**
    * Gets all students.
    *
-   * @return  the all students
+   * @return the all students
    */
-@GetMapping("/all")
+  @GetMapping("/all")
+  @PreAuthorize("hasRole('USER')")
   public List<Student> getAllStudents() {
     List<Student> list = new ArrayList<>();
     studentRepository.findAll().forEach(list::add);
@@ -47,9 +47,9 @@ public class StudentController {
    * Gets student by id.
    *
    * @param id the id
-   * @return  the student by id
+   * @return the student by id
    */
-@GetMapping("/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
     Optional<Student> s = studentRepository.findById(id);
     return s.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -60,9 +60,9 @@ public class StudentController {
    *
    * @param id the id
    * @param student the student
-   * @return  the response entity
+   * @return the response entity
    */
-@PutMapping("/{id}")
+  @PutMapping("/{id}")
   public ResponseEntity<Student> updateStudent(
       @PathVariable Long id, @RequestBody Student student) {
     Optional<Student> existing = studentRepository.findById(id);
