@@ -1,0 +1,51 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: password
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT: false
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak/realm:/opt/keycloak/data/import
+    restart: always
+
+  eureka-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_DIR: EurekaServer
+    image: eureka-server
+    ports:
+      - "8761:8761"
+    restart: on-failure
+
+
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_DIR: gateway
+    image: gateway
+    ports:
+      - "8089:8089"
+    restart: on-failure
+
+  student-ms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_DIR: StudentMS
+    image: student-ms
+    ports:
+      - "8084:8084"
+    restart: on-failure
