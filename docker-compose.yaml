@@ -35,6 +35,9 @@ services:
       args:
         PROJECT_DIR: gateway
     image: gateway
+    environment:
+      EUREKA_HOST: http://eureka-server:8761/eureka/
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
     ports:
       - "8089:8089"
     restart: on-failure
@@ -46,6 +49,9 @@ services:
       args:
         PROJECT_DIR: StudentMS
     image: student-ms
+    environment:
+      EUREKA_HOST: http://eureka-server:8761/eureka/
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/MsSecurity
     ports:
       - "8084:8084"
     restart: on-failure
