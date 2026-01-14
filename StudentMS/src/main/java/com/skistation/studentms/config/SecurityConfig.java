@@ -6,24 +6,30 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * The type Security config.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/students/**").authenticated()
-                        .anyRequest().permitAll()
-                )
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
-        return http.build();
-    }
-
+  /**
+   * Security filter chain security filter chain.
+   *
+   * @param http the http
+   * @return the security filter chain
+   * @throws Exception the exception
+   */
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests(
+            auth -> auth.requestMatchers("/students/**").authenticated().anyRequest().permitAll())
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+    return http.build();
+  }
 }
-
